@@ -4,8 +4,8 @@ import { checkAuth } from "../middleware/checkAuth";
 
 const router = Router();
 
-router.get("/categories", checkAuth, list);
-router.post('/category', checkAuth, create);
-router.get('/category/:slug', checkAuth, read);
-router.delete('/category/:id', checkAuth, remove)
+router.get("/categories", list);
+router.post('/category', create);
+router.get('/category/:slug', read);
+router.delete('/category/:id', remove)
 export default router

@@ -2,9 +2,14 @@ import Product from "../models/product"
 import slugify from "slugify";
 
 export const list = async (req, res) => {
+    const limitNumber = 20
+    const limit = req.query.limit ? +req.query.limit : limitNumber;
+    const sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+    const order = req.query.order ? req.query.order : 'desc';
+
     try {
-        const product = await Product.find().exec();
-        res.json(product);
+        const products = await Product.find().limit(limit).exec();
+        res.json(products);
     } catch (error) {
         res.status(400).json({
             message: "Show sản phẩm không thành công"
@@ -14,8 +19,8 @@ export const list = async (req, res) => {
 };
 export const detail = async (req,res) => {
     try {
-        const product = await Product.findOne({_id : req.params.id}).exec();
-        res.json(product)
+        const products = await Product.findOne({_id : req.params.id}).exec();
+        res.json(products)
     } catch (error) {
         res.status(400).json({
             message: "Show sản phẩm không thành công"
@@ -26,8 +31,8 @@ export const detail = async (req,res) => {
 export const add = async (req, res) => {
     req.body.slug = slugify(req.body.name)
     try {
-        const product = await new Product(req.body).save();
-        res.json(product);
+        const products = await new Product(req.body).save();
+        res.json(products);
     } catch (error) {
         res.status(400).json({
             message: "Thêm sản phẩm không thành công"
@@ -36,11 +41,11 @@ export const add = async (req, res) => {
 };
 export const remove = async (req,res) => {
     try {
-        const product = await new Product.findOneAndDelete({_id : req.params.id}).exec();
-        res.json(product)
+        const products = await Product.findOneAndDelete({_id : req.params.id}).exec();
+        res.json(products)
     } catch (error) {
         res.status(400).json({
-            message: "Thêm sản phẩm không thành công"
+            message: "Xóa sản phẩm không thành công"
         })
     }
 };
@@ -49,7 +54,7 @@ export const updated = async (req,res) => {
     const update = req.body;
     const optional = { new : true}
     try {
-        const newProduct = await new Product.findOneAndUpdate(condition, update, optional).exec();
+        const newProduct = await  Product.findOneAndUpdate(condition, update, optional).exec();
         res.json(newProduct)
     } catch (error) {
         res.status(400).json({
