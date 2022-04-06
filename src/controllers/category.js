@@ -52,3 +52,13 @@ export const read = async (req, res) => { // get all
 export const get = async (req, res) => {
     const category = await Category.findOne({_id: req.params.id}).exec();
     res.json(category)}
+
+export const update = async (req, res) => {
+    req.body.slug = slugify(req.body.name)
+    try {
+        const newCate = await Category.findByIdAndUpdate({_id: req.params.id}, req.body, {new:true})
+        res.json(newCate)
+    } catch (error){
+        
+    }
+}

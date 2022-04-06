@@ -1,6 +1,7 @@
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 
+
 export const signup = async (req,res) => {
     const {email, name, password } = req.body;
     try {
@@ -45,4 +46,36 @@ export const signin = async (req, res) => {
             name: user.name
         }
     })
+}
+
+export const list = async (req, res) => {
+    const user = await User.find().exec();
+    res.json(user)
+}
+
+export const edituser = async (req, res) => {
+    try {
+        const user = await User.findOneAndUpdate({_id:req.params.id}, req.body, {new: true}).exec();
+    res.json(user)
+    } catch (error) {
+        
+    }
+}
+
+export const removeuser = async (req, res) => {
+    try {
+        const remove = await User.findOneAndDelete({_id:req.params.id}).exec()
+        res.json(remove)
+    } catch (error) {
+        
+    }
+}
+
+export const findone = async (req, res) => {
+    try {
+        const getone = await User.findOne({_id:req.params.id}).exec()
+        res.json(getone)
+    } catch (error) {
+        
+    }
 }

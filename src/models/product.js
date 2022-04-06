@@ -17,6 +17,9 @@ const productSchema = mongoose.Schema({
     category: {
         type: ObjectId,
         ref: "Category"
+    },
+    image: {
+        type: String
     }
 
 }, {timestamps: true})
