@@ -6,7 +6,7 @@ import Category from "../models/category";
 export const create = async (req, res) => {
     req.body.slug = slugify(req.body.name);
     try {
-        const  category = await new Category(req.body).save()
+        const category = await new Category(req.body).save()
         res.json(category)
     } catch (error) {
         res.status(400).json({
@@ -24,9 +24,9 @@ export const list = async (req, res) => { // get all
         })
     }
 }
-export const remove = async (req,res) => { //remove
+export const removecate = async (req,res) => { //remove
     try {
-        const category = await new Category.findOneAndDelete({_id : req.params.id}).exec();
+        const category = await Category.findOneAndDelete({_id : req.params.id}).exec();
         res.json(category)
     } catch (error) {
         res.status(400).json({
@@ -48,3 +48,7 @@ export const read = async (req, res) => { // get all
         })
     }
   }
+
+export const get = async (req, res) => {
+    const category = await Category.findOne({_id: req.params.id}).exec();
+    res.json(category)}
