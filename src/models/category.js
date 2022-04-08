@@ -10,7 +10,7 @@ const categorySchema = new Schema ({
         type: String,
         lowercase: true,
         unique: true,
-        index: true
+        index:true
     },
 },{timestamps: true});
 

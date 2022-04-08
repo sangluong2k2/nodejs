@@ -19,9 +19,7 @@ export const list = async (req, res) => { // get all
         const categories = await Category.find().exec();
         res.json(categories);    
     } catch (error) {
-        res.status(400).json({
-            message: "Lỗi"
-        })
+       
     }
 }
 export const removecate = async (req,res) => { //remove
@@ -29,9 +27,7 @@ export const removecate = async (req,res) => { //remove
         const category = await Category.findOneAndDelete({_id : req.params.id}).exec();
         res.json(category)
     } catch (error) {
-        res.status(400).json({
-            message: "Thêm sản phẩm không thành công"
-        })
+        
     }
 };
 export const read = async (req, res) => { // get all
@@ -40,12 +36,11 @@ export const read = async (req, res) => { // get all
         const products = await Product.find({category: category}).populate('category').select('-category').exec()
         console.log('products', products);
         res.json({
-            category, products
+            // category,
+             products
         });    
     } catch (error) {
-        res.status(400).json({
-            message: "Lỗi"
-        })
+        
     }
   }
 
