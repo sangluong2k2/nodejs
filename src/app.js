@@ -23,7 +23,7 @@ mongoose.connect("mongodb://localhost:27017/nodejs")
     .then(() => console.log("connect db thanh cong"))
     .catch((error) => console.log(error))
     
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, () => {
     console.log(`Server running port ${PORT}`)
